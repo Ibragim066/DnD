@@ -1,0 +1,562 @@
+.tasks-kanban-border {
+    border-top: 1px solid rgba(255,255,255,.4);
+    padding: 15px 0 0 0;
+}
+
+.main-kanban {
+    max-width: 100%;
+    clear: both;
+    display: block;
+    font-family: var(--ui-font-family-secondary,var(--ui-font-family-open-sans));
+    font-weight: var(--ui-font-weight-regular,400);
+    height: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+    background-color: transparent;
+    /* width: 1139px; */
+}
+
+
+.main-kanban-inner {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    position: relative;
+    z-index: 9;
+    background-color: transparent;
+    height: 592px;
+}
+
+.main-kanban-inner-shadow {
+    position: absolute;
+    overflow: hidden;
+    width: 10px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 9;
+    opacity: 0;
+    transition: .2s;
+    pointer-events: none;
+}
+
+.main-kanban-inner-shadow:after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    width: 10px;
+    left: -10px;
+    bottom: 10px;
+    -webkit-border-radius: 80%;
+    border-radius: 80%;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+}
+
+.main-kanban-grid {
+    display: flex;
+    margin: 0 auto;
+    position: relative;
+    padding-top: 8px;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.main-kanban-column {
+    flex: 1;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 240px;
+    max-width: 340px;
+    padding: 0 3px;
+    position: relative;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    transform: translateZ(0);
+    background-color: #31a1c4;
+}
+
+.main-kanban-column:first-child {
+    padding-left: 0;
+    background-color: #33768a;
+}
+
+.main-kanban-column:last-child {
+    padding-right: 0;
+    background-color: #6fbad1;
+}
+
+
+.main-kanban-column:before {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 30px;
+    bottom: 5px;
+    width: 2px;
+    border-left: 1px dashed #d7dee1;
+    z-index: 9;
+}
+
+.main-kanban-column:first-child:before {
+    left: 0;
+}
+
+.main-kanban-column-header {
+    position: relative;
+    margin: 0 -4px 5px 0;
+    z-index: 9;
+}
+
+.main-kanban-column-title {
+    display: block;
+    height: 32px;
+    position: relative;
+    width: 100%;
+    white-space: nowrap;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.main-kanban-column-title-bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -999;
+    background: #194d5c;
+    border-radius: var(--ui-border-radius-2xs,3px);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.main-kanban-column-title-info {
+    opacity: 1;
+    transition: .2s;
+    display: flex;
+    position: relative;
+    z-index: 9;
+    margin: 0 18px 0 12px;
+    text-transform: uppercase;
+}
+
+
+.main-kanban-column-title-text {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex: 1;
+    flex: 1;
+    overflow: hidden;
+    margin: 0 4px 0 0;
+    vertical-align: middle;
+    height: 32px;
+    line-height: 32px;
+    font-family: var(--ui-font-family-secondary,var(--ui-font-family-open-sans));
+    font-weight: var(--ui-font-weight-semi-bold,600);
+    font-size: 12px;
+    color: #000;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    pointer-events: none;
+}
+
+.main-kanban-column-title-text-inner {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.main-kanban-column-total-item {
+    -ms-flex: 1;
+    flex: 1;
+    height: 32px;
+    margin: 0 0 0 2px;
+    line-height: 32px;
+    font-size: 11px;
+    color: #000;
+    opacity: .7;
+    font-family: var(--ui-font-family-secondary,var(--ui-font-family-open-sans));
+    font-weight: var(--ui-font-weight-regular,400);
+}
+
+.main-kanban-column-title-dark .main-kanban-column-total-item, 
+.main-kanban-column-title-dark .main-kanban-column-title-text {
+    color: #fff;
+}
+
+.main-kanban-column-total-item:before {
+    content: '(';
+}
+
+.main-kanban-column-total-item:after {
+    content: ')';
+}
+
+.main-kanban-column-title-block-edit {
+    display: block;
+    position: relative;
+    opacity: 0;
+    margin: 0 0 0 4px;
+    transform: translateY(-32px);
+    transition: .2s;
+}
+
+.main-kanban-column-title-input-edit {
+    display: inline-block;
+    width: calc(100% - 70px);
+    margin: 0 5px 0 0;
+    vertical-align: middle;
+    background: #fff;
+    border: 1px solid #eaecef;
+    height: 26px;
+    padding: 0 6px;
+    font-family: var(--ui-font-family-secondary,var(--ui-font-family-open-sans));
+    font-weight: var(--ui-font-weight-bold,700);
+    font-size: 12px;
+    color: #525c68;
+}
+
+.main-kanban-column-color {
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 32px;
+    background: url(data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2012%2012%22%3E%0A%20%20%3Cpath%20fill%3D%22%23525C69%22%20fill-rule%3D%22evenodd%22%20d%3D%22M654.321749%2C269.521789%20C654.725275%2C269.53104%20655.191703%2C269.537588%20655.648332%2C269.417898%20C655.922924%2C269.34597%20655.966073%2C269.244885%20655.847247%2C268.98851%20C655.240804%2C267.680182%20654.269314%2C266.71975%20653.057555%2C265.991007%20C652.613651%2C265.72403%20652.123776%2C265.524512%20651.614918%2C265.53766%20C650.758149%2C265.5598%20650.35488%2C266.110437%20650.459853%2C267.004657%20C650.547638%2C267.752942%20650.863533%2C268.428154%20651.304256%2C269.041001%20C651.389682%2C269.159808%20651.480905%2C269.235218%20651.620202%2C269.264738%20C652.490567%2C269.448925%20653.369756%2C269.5379%20654.321749%2C269.521789%20M649.933704%2C266.634309%20C649.873522%2C266.662737%20649.855%2C266.666323%20649.84402%2C266.677445%20C648.677873%2C267.858392%20647.499208%2C269.026969%20646.351634%2C270.226157%20C645.656635%2C270.952406%20645.458079%2C271.819757%20645.912193%2C272.754463%20C646.596264%2C274.162316%20647.652153%2C275.206682%20649.053181%2C275.87966%20C649.512836%2C276.100486%20650.004764%2C276.137646%20650.502643%2C276.018787%20C650.96435%2C275.908556%20651.315646%2C275.614398%20651.641033%2C275.288433%20C652.618987%2C274.308772%20653.592939%2C273.325109%20654.564121%2C272.338639%20C654.710088%2C272.190417%20654.900384%2C272.085954%20655.036193%2C271.871312%20C654.357766%2C271.868922%20653.751425%2C271.695857%20653.173457%2C271.420045%20C652.295037%2C271.000947%20651.611018%2C270.332803%20650.980204%2C269.608113%20C650.63527%2C269.211883%20650.336204%2C268.776519%20650.158683%2C268.269746%20C649.977315%2C267.751902%20649.905178%2C267.216857%20649.933704%2C266.634309%20M649.850074%2C276.856566%20C649.293706%2C276.84903%20648.818505%2C276.602842%20648.360594%2C276.322456%20C647.538919%2C275.819373%20646.858799%2C275.145459%20646.233629%2C274.418951%20C645.737084%2C273.841913%20645.293077%2C273.221634%20645.088569%2C272.464202%20C645.039366%2C272.282043%20644.999142%2C271.515828%20645.000014%2C271.49769%20C645.031311%2C270.86473%20645.343973%2C270.362894%20645.762122%2C269.933714%20C647.136522%2C268.523262%20648.522055%2C267.123932%20649.911796%2C265.729019%20C650.241544%2C265.398065%20650.636861%2C265.168871%20651.093181%2C265.036084%20C651.255105%2C264.988946%20651.684079%2C265.001887%20651.724919%2C265.000952%20C652.220027%2C264.98957%20652.662803%2C265.167364%20653.076949%2C265.414124%20C654.250536%2C266.113452%20655.192883%2C267.068582%20655.981773%2C268.181758%20C656.435169%2C268.821474%20656.754706%2C269.515812%20656.705401%2C270.334414%20C656.688469%2C270.615631%20656.597195%2C270.884375%20656.596939%2C271.17027%20C656.596682%2C271.524091%20656.680773%2C271.864244%20656.720741%2C272.211154%20C656.751423%2C272.477611%20656.811297%2C272.740638%20656.858243%2C273.005225%20C656.858243%2C273.178445%20656.822533%2C273.714219%20656.808065%2C273.809222%20C656.716432%2C274.411675%20656.574158%2C274.739355%20656.15678%2C274.7946%20C655.91764%2C274.826251%20655.713132%2C274.740238%20655.532994%2C274.612337%20C655.02075%2C274.248589%20654.778583%2C273.883542%20655.229619%2C273.212383%20C655.34157%2C273.045814%20655.497542%2C272.923422%20655.623807%2C272.772445%20C655.827904%2C272.528439%20655.973051%2C272.259383%20655.935443%2C271.905146%20C655.880596%2C271.918191%20655.874234%2C271.96959%20655.845708%2C271.998694%20C654.564173%2C273.30536%20653.28197%2C274.611453%20651.996587%2C275.914273%20C651.582902%2C276.333578%20651.129404%2C276.689998%20650.542354%2C276.836661%20C650.424246%2C276.866181%20649.877523%2C276.856982%20649.850074%2C276.856566%22%20transform%3D%22translate%28-645%20-265%29%22/%3E%0A%3C/svg%3E%0A) center center no-repeat;
+    background-size: 12px 12px;
+    opacity: .6;
+    cursor: pointer;
+    -webkit-transition: .1s;
+    transition: .1s;
+}
+
+.main-kanban-column-title-dark .main-kanban-column-color {
+    background-image: url(data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2012%2012%22%3E%0A%20%20%3Cpath%20fill%3D%22%23FFFFFF%22%20fill-rule%3D%22evenodd%22%20d%3D%22M654.321749%2C269.521789%20C654.725275%2C269.53104%20655.191703%2C269.537588%20655.648332%2C269.417898%20C655.922924%2C269.34597%20655.966073%2C269.244885%20655.847247%2C268.98851%20C655.240804%2C267.680182%20654.269314%2C266.71975%20653.057555%2C265.991007%20C652.613651%2C265.72403%20652.123776%2C265.524512%20651.614918%2C265.53766%20C650.758149%2C265.5598%20650.35488%2C266.110437%20650.459853%2C267.004657%20C650.547638%2C267.752942%20650.863533%2C268.428154%20651.304256%2C269.041001%20C651.389682%2C269.159808%20651.480905%2C269.235218%20651.620202%2C269.264738%20C652.490567%2C269.448925%20653.369756%2C269.5379%20654.321749%2C269.521789%20M649.933704%2C266.634309%20C649.873522%2C266.662737%20649.855%2C266.666323%20649.84402%2C266.677445%20C648.677873%2C267.858392%20647.499208%2C269.026969%20646.351634%2C270.226157%20C645.656635%2C270.952406%20645.458079%2C271.819757%20645.912193%2C272.754463%20C646.596264%2C274.162316%20647.652153%2C275.206682%20649.053181%2C275.87966%20C649.512836%2C276.100486%20650.004764%2C276.137646%20650.502643%2C276.018787%20C650.96435%2C275.908556%20651.315646%2C275.614398%20651.641033%2C275.288433%20C652.618987%2C274.308772%20653.592939%2C273.325109%20654.564121%2C272.338639%20C654.710088%2C272.190417%20654.900384%2C272.085954%20655.036193%2C271.871312%20C654.357766%2C271.868922%20653.751425%2C271.695857%20653.173457%2C271.420045%20C652.295037%2C271.000947%20651.611018%2C270.332803%20650.980204%2C269.608113%20C650.63527%2C269.211883%20650.336204%2C268.776519%20650.158683%2C268.269746%20C649.977315%2C267.751902%20649.905178%2C267.216857%20649.933704%2C266.634309%20M649.850074%2C276.856566%20C649.293706%2C276.84903%20648.818505%2C276.602842%20648.360594%2C276.322456%20C647.538919%2C275.819373%20646.858799%2C275.145459%20646.233629%2C274.418951%20C645.737084%2C273.841913%20645.293077%2C273.221634%20645.088569%2C272.464202%20C645.039366%2C272.282043%20644.999142%2C271.515828%20645.000014%2C271.49769%20C645.031311%2C270.86473%20645.343973%2C270.362894%20645.762122%2C269.933714%20C647.136522%2C268.523262%20648.522055%2C267.123932%20649.911796%2C265.729019%20C650.241544%2C265.398065%20650.636861%2C265.168871%20651.093181%2C265.036084%20C651.255105%2C264.988946%20651.684079%2C265.001887%20651.724919%2C265.000952%20C652.220027%2C264.98957%20652.662803%2C265.167364%20653.076949%2C265.414124%20C654.250536%2C266.113452%20655.192883%2C267.068582%20655.981773%2C268.181758%20C656.435169%2C268.821474%20656.754706%2C269.515812%20656.705401%2C270.334414%20C656.688469%2C270.615631%20656.597195%2C270.884375%20656.596939%2C271.17027%20C656.596682%2C271.524091%20656.680773%2C271.864244%20656.720741%2C272.211154%20C656.751423%2C272.477611%20656.811297%2C272.740638%20656.858243%2C273.005225%20C656.858243%2C273.178445%20656.822533%2C273.714219%20656.808065%2C273.809222%20C656.716432%2C274.411675%20656.574158%2C274.739355%20656.15678%2C274.7946%20C655.91764%2C274.826251%20655.713132%2C274.740238%20655.532994%2C274.612337%20C655.02075%2C274.248589%20654.778583%2C273.883542%20655.229619%2C273.212383%20C655.34157%2C273.045814%20655.497542%2C272.923422%20655.623807%2C272.772445%20C655.827904%2C272.528439%20655.973051%2C272.259383%20655.935443%2C271.905146%20C655.880596%2C271.918191%20655.874234%2C271.96959%20655.845708%2C271.998694%20C654.564173%2C273.30536%20653.28197%2C274.611453%20651.996587%2C275.914273%20C651.582902%2C276.333578%20651.129404%2C276.689998%20650.542354%2C276.836661%20C650.424246%2C276.866181%20649.877523%2C276.856982%20649.850074%2C276.856566%22%20transform%3D%22translate%28-645%20-265%29%22/%3E%0A%3C/svg%3E%0A);
+}
+
+.main-kanban-column-subtitle {
+    overflow: hidden;
+    position: relative;
+    font-family: var(--ui-font-family-secondary,var(--ui-font-family-open-sans));
+    font-weight: var(--ui-font-weight-light,300);
+    min-height: 25px;
+    line-height: 70px;
+    color: #525c68;
+    text-align: center;
+    z-index: 9;
+}
+
+.main-kanban-column-subtitle-box {
+    min-height: 35px;
+    padding-top: 5px;
+}
+
+.main-kanban-column-add-item-button {
+    display: flex;
+    width: calc(100% - 8px);
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    line-height: normal;
+    height: 30px;
+    margin: 0 7px 0 3px;
+    cursor: pointer;
+    background-color: #ddd7d7;
+    transition: .2s;
+    border-radius: var(--ui-border-radius-2xs);
+}
+
+.main-kanban-column-add-item-button:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
+    background: url(../img/free-icon-plus.png) center center no-repeat;
+    background-size: 10px 10px;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+}
+
+.main-kanban-column-add-item-button-text {
+    display: inline-block;
+    overflow: hidden;
+    width: 0;
+    vertical-align: middle;
+    font-family: var(--ui-font-family-secondary,var(--ui-font-family-open-sans));
+    font-weight: var(--ui-font-weight-semi-bold,600);
+    font-size: 13px;
+    color: var(--graphite);
+    transition: .3s;
+}
+
+.main-kanban-column-body {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 1px 3px 0 1px;
+    margin: 0 -2px 0 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    opacity: 1;
+    z-index: 99;
+    scrollbar-arrow-color: #ccc;
+    scrollbar-track-color: transparent;
+    scrollbar-base-color: #ccc;
+    scrollbar-shadow-color: #fff;
+    scrollbar-highlight-color: #fff;
+    -webkit-transition: .2s;
+    transition: .2s;
+}
+
+.main-kanban-item {
+    display: block;
+    position: relative;
+    padding: 0 0 6px 0;
+    margin: 0 1px 0 -1px;
+    cursor: grabbing;
+}
+
+.main-kanban-item.dragged {
+  min-width: 235px;
+  position: absolute;
+  z-index: 999;
+  pointer-events: none;
+  background: #fff;
+  border:1px solid rgb(53, 62, 145);
+}
+
+.main-kanban-item-drag-target, .main-kanban-column-drag-target {
+    content: '';
+    display: block;
+    height: 0;
+    background: #e4ebee !important;
+    border: 0 dashed transparent;
+    border-radius: var(--ui-border-radius-md,3px);
+    -webkit-transition: .1s;
+    -moz-transition: .1s;
+    transition: .1s;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    opacity: 0;
+}
+
+.main-kanban-item-wrapper {
+    position: relative;
+    background: var(--ui-color-background-transparent,#fff);
+    border-radius: var(--ui-border-radius-none,2px);
+    font-family: var(--ui-font-family-secondary,var(--ui-font-family-open-sans));
+    font-weight: var(--ui-font-weight-regular,400);
+    -moz-user-select: -moz-none;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-user-select: text;
+}
+
+.tasks-kanban-item {
+    padding: 10px 35px 0 12px;
+    position: relative;
+    background: #fff;
+    border-radius: var(--ui-border-radius-md);
+    overflow: hidden;
+    --tasks-kanban-item-color: rgba(0,196,251,0.7);
+}
+
+.tasks-kanban-item-title, .tasks-kanban-item-text  {
+    clear: both;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    max-width: 100%;
+    margin: 0 0 7px;
+    font-family: var(--ui-font-family-secondary,var(--ui-font-family-open-sans));
+    font-weight: var(--ui-font-weight-semi-bold,600);
+    color: #333;
+    font-size: 13px;
+    max-height: 65px;
+    letter-spacing: 0;
+    line-height: 16px;
+    padding-right: 24px;
+    text-overflow: ellipsis;
+}
+
+.tasks-kanban-item-text {
+    font-weight: var(--ui-font-weight-semi-bold,400);
+    text-align: left;
+}
+
+.tasks-kanban-item-tags {
+    display: block;
+    overflow: hidden;
+    margin-bottom: 3px;
+}
+
+.tasks-kanban-item-deadline {
+    display: inline-block;
+    vertical-align: middle;
+    overflow: hidden;
+    margin: 1px 4px 0 0;
+    font-size: 12px;
+    color: #525c69;
+    border-bottom: 1px dashed transparent;
+}
+
+.tasks-kanban-item-pointer {
+    cursor: pointer;
+}
+
+
+.ui-label {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    background-color: transparent;
+    padding: 0 8px;
+    margin-right: 10px;
+    height: var(--ui-label-height);
+    border-radius: calc(var(--ui-label-height) / 2);
+    border: 1px solid var(--ui-label-background-color);
+    transition: 250ms linear all;
+    box-sizing: border-box;
+}
+
+.ui-label.ui-label-fill {
+    background-color: var(--ui-label-background-color);
+    border-color: transparent !important;
+}
+
+.ui-label-sm {
+    --ui-label-height: 18px;
+}
+
+.ui-label-secondary {
+    --ui-label-background-color: var(--ui-color-accent-aqua, #55d0e0);
+    --ui-label-background-color-hover: #19d2c8;
+}
+
+.ui-label-inner {
+    font: 12px/14px var(--ui-label-font);
+    vertical-align: middle;
+    color: var(--ui-label-color);
+    transition: 250ms linear all;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+.input {
+    display: inline-block;
+    padding: .55rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: rgb(94, 85, 85);
+    border: 1px solid rgb(170, 161, 161);
+    border-radius: 0.25rem;
+    outline: none;
+  }
+  
+  input:focus {
+    border: 2px solid rgb(226, 77, 77);
+  }
+  
+  .input::placeholder {
+    color:rgb(190, 196, 196);
+  }
+  
+  .btn {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1rem;
+    line-height: 1.5;
+    color:rgb(243 237 237);
+    background-color: #31477a;
+    border: 1px solid rgb(170, 161, 161);
+    border-radius: 0.25rem;
+    user-select: none;
+  }
+
+form {
+    position: relative;
+  }
+  
+  .form-control {
+    position: relative;
+    margin-bottom: 0.5rem;
+  }
+
+  .item-form_visible {
+    display: block;
+  }
+  
+  #item-form {
+    border: 1px solid #3f426e;
+    padding: 10px;
+    background-color: #a9aeb5;
+    
+  }
+  
+  .form-item {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+  
+  .label-item {
+    text-align: left;
+    font-size: 1.15rem;
+    margin: 0.5rem 0;
+  }
+  
+  .input-item {
+    border-radius: 1.25rem
+  }
+  
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0; 
+  }
+
+  .btn-remove {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 5px;
+    color: #b5aaaa;
+  }
+
+  .btn-remove_visible {
+    display: block;
+    cursor: default; 
+  }
+  
+.card-btn {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-add {
+  background-color: #e4e1e1;
+  color:#363232;
+  border-radius: 25px;
+}
+
+.btn-close {
+  border-radius: 25px;
+}
